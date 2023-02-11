@@ -20,15 +20,17 @@ process.on("uncaughtException", (err) => {
 /**
  * handle uncaught E
  */
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 
 dotenv.config({ path: __dirname + "/.env" });
 
 console.log(process.env.PORT);
 
+let connectDB;
+
 if (process.env.NODE_ENV === "development") {
 	console.log("started on dev mode");
-	mongoose
+	connectDB = mongoose
 		.connect(process.env.DATABASE_LOCAL, {
 			keepAlive: true,
 			keepAliveInitialDelay: 300000,
@@ -37,7 +39,7 @@ if (process.env.NODE_ENV === "development") {
 			console.log("db connected");
 		});
 } else if (process.env.NODE_ENV === "production") {
-	mongoose
+	connectDB = mongoose
 		.connect(process.env.MONGO_URL_CLUSTER, {
 			keepAlive: true,
 			keepAliveInitialDelay: 300000,
@@ -48,8 +50,15 @@ if (process.env.NODE_ENV === "development") {
 	console.log("started in production mode");
 }
 
-const server = httpServer.listen(process.env.PORT || 8081, () => {
-	console.log("online server connected @  " + process.env.PORT);
+// const server = httpServer.listen(process.env.PORT || 8081, () => {
+// 	console.log("online server connected @  " + process.env.PORT);
+// });
+
+connectDB().then(() => {
+	app.listen(process.env.PORT, () => {
+		console.log("listening for requests");
+		console.log("online server connected @  " + process.env.PORT);
+	});
 });
 
 // const sendNotificationHandler = require("./public/Events/MsgEvent");
