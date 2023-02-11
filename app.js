@@ -6,14 +6,31 @@ const hpp = require("hpp");
 const helmet = require("helmet");
 const sanitize = require("express-mongo-sanitize");
 // const morgan = require("morgan");
-const connectDB = require("./index");
 const cors = require("cors");
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 
 const globalErrorHandler = require("./public/utils/errorController");
 const userRouter = require("./public/Routes/userRoutes");
 const registrationRouter = require("./public/Routes/registrationRoutes");
 
 const app = express();
+
+const PORT = process.env.PORT || 3000;
+
+const connectDB = async () => {
+	try {
+		const conn = await mongoose.connect(process.env.MONGO_URL_CLUSTER, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+		console.log(`MongoDB Connected: ${conn.connection.host}`);
+	} catch (error) {
+		console.log(error);
+		process.exit(1);
+	}
+};
+
 app.use(cors({ origin: true, credentials: true }));
 const session = {
 	secret: "someSecret",
@@ -62,9 +79,7 @@ app.use(globalErrorHandler);
 connectDB().then(() => {
 	app.listen(process.env.PORT, () => {
 		console.log("listening for requests");
-		console.log("online server connected @  " + process.env.PORT);
+		console.log("online server connected @  " + PORT);
 	});
 });
 /*==================================================*/
-
-module.exports = app;

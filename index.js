@@ -63,8 +63,6 @@ if (process.env.NODE_ENV === "development") {
 // 	console.log("online server connected @  " + process.env.PORT);
 // });
 
-export { connectDB };
-
 // const sendNotificationHandler = require("./public/Events/MsgEvent");
 
 process.on("unhandledRejection", (err) => {
@@ -72,3 +70,5 @@ process.on("unhandledRejection", (err) => {
 	console.log("unhandled Rejection, Shutting down.....");
 	process.exit();
 });
+
+module.export = connectDB;
