@@ -3,7 +3,6 @@ const RegistrationYears = require("../Models/registrationYears");
 const AppError = require("../utils/AppError");
 const CatchAsync = require("../utils/CatchAsync");
 const ApiFeatures = require("../utils/APIfeatures");
-const { log } = require("console");
 
 /**===============create registration ==============**/
 exports.createRegistration = CatchAsync(async (req, res) => {
