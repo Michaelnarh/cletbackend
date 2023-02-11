@@ -10,6 +10,7 @@ const http = require("http");
 // });
 // global.io = io;
 const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 process.on("uncaughtException", (err) => {
 	console.log("unCaught Exception, Shutting down.....");
 	console.log(err.name, err.message);
@@ -48,7 +49,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const server = httpServer.listen(process.env.PORT || 8081, () => {
-	console.log("local server connected @  " + process.env.PORT);
+	console.log("online server connected @  " + process.env.PORT);
 });
 
 // const sendNotificationHandler = require("./public/Events/MsgEvent");
