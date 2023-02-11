@@ -6,6 +6,7 @@ const hpp = require("hpp");
 const helmet = require("helmet");
 const sanitize = require("express-mongo-sanitize");
 // const morgan = require("morgan");
+const connectDB = require("./index");
 const cors = require("cors");
 
 const globalErrorHandler = require("./public/utils/errorController");
@@ -58,6 +59,12 @@ app.all("*", (req, res, next) => {
 
 app.use(globalErrorHandler);
 
+connectDB().then(() => {
+	app.listen(process.env.PORT, () => {
+		console.log("listening for requests");
+		console.log("online server connected @  " + process.env.PORT);
+	});
+});
 /*==================================================*/
 
 module.exports = app;
