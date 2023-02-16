@@ -5,6 +5,8 @@ const xclean = require("xss-clean");
 const hpp = require("hpp");
 const helmet = require("helmet");
 const sanitize = require("express-mongo-sanitize");
+
+const AppError = require("./public/utils/AppError");
 // const morgan = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -20,7 +22,7 @@ const PORT = process.env.PORT || 3000;
 
 const connectDB = async () => {
 	try {
-		const conn = await mongoose.connect(process.env.MONGO_URL_CLUSTER, {
+		const conn = await mongoose.connect(process.env.DATABASE_LOCAl, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
@@ -69,7 +71,7 @@ app.use("/api/v1/users", userRouter);
 /**==========Requests which are not undefined ====================**/
 app.all("*", (req, res, next) => {
 	const url = `${req.originalUrl}`;
-	next(new Error("The request at  " + url + " is not defined", 404));
+	next(new AppError("The request at  " + url + " is not defined", 404));
 });
 
 /**=================handles all global error========*/

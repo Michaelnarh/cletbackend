@@ -6,6 +6,7 @@ const registrationYearSchema = mongoose.Schema(
 		programmeName: { type: String, required: true },
 		programmeDate: { type: String },
 		episode: { type: String },
+		amountPayable: { type: Number },
 		slug: { type: String, unique: true },
 	},
 	{ timestamps: true }

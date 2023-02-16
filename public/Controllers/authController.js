@@ -75,14 +75,12 @@ exports.SignUp = async (req, res) => {
 		newUser.save();
 
 		const user = newUser.toObject();
-
 		delete user.password;
 		delete user.passwordConfirm;
-		// res.cookie("jwt", token, cookieOptions);
 		res.status(201).json({
 			status: "success",
 			user: user,
-			token: token,
+			access_token: token,
 		});
 	} catch (err) {
 		res.status(500).json({
@@ -94,11 +92,9 @@ exports.SignUp = async (req, res) => {
 exports.LogIn = async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
-
 		if (!email || !password) {
 			throw Error("input Email and  password");
 		}
-
 		const user = await User.findOne({ email }).select("+password");
 		let correct;
 		if (user) {
@@ -110,9 +106,9 @@ exports.LogIn = async (req, res, next) => {
 			return next(new AppError("Incorrect Email or Password", 401));
 		}
 		//signin token by the user Dr. Isaac Kingsley Amponsah Dr. Emmanuel Kwesi Arthur
-		let token;
+		let access_token;
 		try {
-			token = SignInToken(user._id);
+			access_token = SignInToken(user._id);
 		} catch (err) {
 			return next(new AppError("Sign in Token Error", 401));
 		}
@@ -120,12 +116,12 @@ exports.LogIn = async (req, res, next) => {
 		const u = user.toObject();
 		u.isLoggedIn = true;
 		delete u.password;
-		// res.cookie("jwt", token, cookieOptions);
+		// res.cookie("jwt", access_token, cookieOptions);
 
 		res.status(200).json({
 			status: "success",
 			user: u,
-			token,
+			access_token,
 		});
 	} catch (err) {
 		res.status(500).json({
