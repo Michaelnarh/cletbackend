@@ -30,7 +30,7 @@ module.exports = (name) => {
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt temporibus laborum hic reprehenderit cumque!
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt temporibus laborum hic reprehenderit cumque!
               </p>
-              <img src="http://localhost:8081/api/images/bg_mail.jpg"  widtth="200" height="300"/>
+              <img src="http://localhost:8081/images/bg_mail.jpg"  widtth="200" height="300"/>
           </div>
       </body>
       </html>`;

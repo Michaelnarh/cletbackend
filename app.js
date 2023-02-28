@@ -14,6 +14,7 @@ mongoose.set("strictQuery", false);
 
 const globalErrorHandler = require("./public/utils/errorController");
 const userRouter = require("./public/Routes/userRoutes");
+const messageRouter = require("./public/Routes/MessageRoutes");
 const registrationRouter = require("./public/Routes/registrationRoutes");
 
 const app = express();
@@ -66,6 +67,7 @@ app.get("/api", (req, res) => {
 /**==========All Api End_points ====================**/
 // app.post("/api/v1/regis", (req, res) => res.send("worining here"));
 app.use("/api/v1/registrations", registrationRouter);
+app.use("/api/v1/messages", messageRouter);
 app.use("/api/v1/users", userRouter);
 
 /**==========Requests which are not undefined ====================**/

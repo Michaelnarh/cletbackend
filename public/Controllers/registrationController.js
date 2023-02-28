@@ -2,6 +2,7 @@ const Registration = require("../Models/registrationModel");
 const RegistrationYears = require("../Models/registrationYears");
 const AppError = require("../utils/AppError");
 const CatchAsync = require("../utils/CatchAsync");
+const SendSms = require("../utils/SendSMS");
 const ApiFeatures = require("../utils/APIfeatures");
 
 /**===============create registration ==============**/
@@ -13,9 +14,19 @@ exports.createRegistration = CatchAsync(async (req, res) => {
 	);
 	req.body.registrationYear = program?._id;
 	const newRegistration = await Registration.create(req.body);
+
+	const options = {
+		message:
+			"Thank you for Registering for this Exciting program. The Venue is the GNAT Hall, Accra. Call 0246924964 / emmascopee71@gmail.com for any assistance",
+		phone: req.body.phone,
+		from: "CLET-GH",
+	};
+	const sms = SendSms(options);
+
 	res.status(201).json({
 		status: "success",
 		data: newRegistration,
+		sms,
 	});
 });
 exports.adminRegistration = CatchAsync(async (req, res) => {
@@ -49,7 +60,7 @@ exports.updateRegistration = CatchAsync(async (req, res, next) => {
 	if (req.body.fullyPaid === "true" || req.body.fullyPaid) {
 		req.body.paymentStatus = 1;
 	}
-	console.log(req.body);
+
 	if (req.body.fullyPaid === "false" || !req.body.fullyPaid) {
 		req.body.paymentStatus = 0;
 	}

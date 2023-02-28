@@ -100,7 +100,7 @@ exports.LogIn = async (req, res, next) => {
 		if (user) {
 			correct = await user.correctPassword(password, user.password);
 		}
-
+		console.log(correct);
 		if (!user || !correct) {
 			// throw Error("Incorrect Email or Password ");
 			return next(new AppError("Incorrect Email or Password", 401));
@@ -116,6 +116,7 @@ exports.LogIn = async (req, res, next) => {
 		const u = user.toObject();
 		u.isLoggedIn = true;
 		delete u.password;
+
 		// res.cookie("jwt", access_token, cookieOptions);
 
 		res.status(200).json({
