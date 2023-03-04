@@ -46,9 +46,18 @@ exports.adminRegistration = CatchAsync(async (req, res) => {
 
 	req.body.manual = true;
 	const newRegistration = await Registration.create(req.body);
+
+	const options = {
+		message:
+			"Thank you for Registering for this Exciting program. The Venue is the GNAT Hall, Accra. Call 0246924964 / emmascopee71@gmail.com for any assistance",
+		phone: req.body.phone,
+		from: "CLET-GH",
+	};
+	const sms = SendSms(options);
 	res.status(201).json({
 		status: "success",
 		data: newRegistration,
+		sms,
 	});
 });
 
