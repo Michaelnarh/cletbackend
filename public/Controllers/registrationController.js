@@ -126,3 +126,12 @@ exports.getManualRegistered = CatchAsync(async (req, res) => {
 		data: registered,
 	});
 });
+
+exports.deleteRegistration = CatchAsync(async (req, res) => {
+	const registered = await Registration.findById(req.params.id);
+	await Registration.findByIdAndDelete(req.params.id);
+	res.status(200).json({
+		status: "success",
+		message: `Registration records of  ${registered?.firstName} is deleted successfully`,
+	});
+});

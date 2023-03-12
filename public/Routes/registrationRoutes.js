@@ -29,6 +29,7 @@ router
 		// authController.protected,
 		// authController.restrictTo("admin", "superAdmin", "supervisor"),
 		registrationController.updateRegistration
-	);
+	)
+	.delete(registrationController.deleteRegistration);
 
 module.exports = router;

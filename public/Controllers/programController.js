@@ -40,7 +40,6 @@ exports.geProgram = CatchAsync(async (req, res, next) => {
 });
 
 /***======  get all Program  =============**/
-
 exports.getAllProgram = CatchAsync(async (req, res) => {
 	const total_program = await Program.find().countDocuments();
 
