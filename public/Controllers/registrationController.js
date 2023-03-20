@@ -17,7 +17,7 @@ exports.createRegistration = CatchAsync(async (req, res) => {
 
 	const options = {
 		message:
-			"Thank you for Registering for this Exciting program. The Venue is the GNAT Hall, Accra. Call 0246924964 / emmascopee71@gmail.com for any assistance",
+			"Thank you for Registering for this Exciting program. The Venue is the GNAT Hall, Accra. Call 0246924964 / cletghana@gmail.com for any assistance",
 		phone: req.body.phone,
 		from: "CLET-GH",
 	};
@@ -49,7 +49,7 @@ exports.adminRegistration = CatchAsync(async (req, res) => {
 
 	const options = {
 		message:
-			"Thank you for Registering for this Exciting program. The Venue is the GNAT Hall, Accra. Call 0246924964 / emmascopee71@gmail.com for any assistance",
+			"Thank you for Registering for this Exciting program. The Venue is the GNAT Hall, Accra. Call 0246924964 / cletghana@gmail.com for any assistance",
 		phone: req.body.phone,
 		from: "CLET-GH",
 	};
